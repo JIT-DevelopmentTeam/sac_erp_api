@@ -1,7 +1,9 @@
 package com.fh.controller;
 
 import com.fh.controller.base.BaseController;
+import com.fh.entity.Page;
 import com.fh.service.interface_.item.ItemManager;
+import com.fh.util.PageData;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.dom4j.Document;
@@ -11,29 +13,67 @@ import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 
 @Controller
-@RequestMapping(value="/erp_get")
+@RequestMapping(value="/api/erp_get")
 public class ErpGetController extends BaseController{
-
-	/**
-	 * modify的Class号码
-	 */
 
 	@Resource(name="itemService")
 	private ItemManager itemService;
 
 
+	@ResponseBody
+	@RequestMapping(value = "/getClient")
+	public Map<String, Object> getClient(Page page) throws Exception {
+		Map<String, Object> json = new HashMap<String, Object>();
+		PageData pd = this.getPageData();
+		List<PageData> varList = itemService.clientList(pd);
+		json.put("size", varList.size());
+		json.put("data", varList);
+		return json;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/getContract")
+	public Map<String, Object> getContract(Page page) throws Exception {
+		Map<String, Object> json = new HashMap<String, Object>();
+		PageData pd = this.getPageData();
+		List<PageData> varList = itemService.contractList(pd);
+		json.put("size", varList.size());
+		json.put("data", varList);
+		return json;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/getItem")
+	public Map<String, Object> getItem(Page page) throws Exception {
+		Map<String, Object> json = new HashMap<String, Object>();
+		PageData pd = this.getPageData();
+		List<PageData> varList = itemService.itemList(pd);
+		json.put("size", varList.size());
+		json.put("data", varList);
+		return json;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/getStock")
+	public Map<String, Object> getStock(Page page) throws Exception {
+		Map<String, Object> json = new HashMap<String, Object>();
+		PageData pd = this.getPageData();
+		List<PageData> varList = itemService.stockList(pd);
+		json.put("size", varList.size());
+		json.put("data", varList);
+		return json;
+	}
 
 
 

@@ -16,7 +16,11 @@
 		from
 			t_Organization
 		where
-			CONVERT(BIGINT, FModifyTime) > #{modifyTime}
+		1 = 1
+		<if test="max != null and max != ''">
+			And CONVERT(BIGINT, FModifyTime) > #{max}
+		</if>
+
 	</select>
 
 	<select id="contractList" parameterType="pd" resultType="pd">
@@ -36,8 +40,9 @@
 		LEFT JOIN t_SubMessage C ON C.FInterID= A.F_106
 		WHERE
 			C.FName = '整机'
-		AND
-			CONVERT(BIGINT, A.FModifyTime) > #{modifyTime}
+			<if test="max != null and max != ''">
+				AND CONVERT(BIGINT, A.FModifyTime) > #{max}
+			</if>
 	</select>
 
 	<select id="itemList" parameterType="pd" resultType="pd">
@@ -54,7 +59,10 @@
 		left join t_MeasureUnit u on u.FItemID = i.FCUUnitID
 		left join t_StockPlace s on s.FSPID = i.FSPID
 		where
-			CONVERT(BIGINT, i.FModifyTime) > #{modifyTime}
+		1 = 1
+		<if test="max != null and max != ''">
+			And CONVERT(BIGINT, i.FModifyTime) > #{max}
+		</if>
 	</select>
 
 	<select id="stockList" parameterType="pd" resultType="pd">
@@ -72,7 +80,10 @@
 		LEFT JOIN t_MeasureUnit unit ON unit.FItemID = item.FCUUnitID
 		LEFT JOIN t_Stock stock ON stock.FItemID = inven.FStockID
 		WHERE
-			item.FNumber = #{modifyTime}
+		1 = 1
+		<if test="num != null and num != ''">
+			and item.FNumber = #{num}
+		</if>
 	</select>
 
 </mapper>

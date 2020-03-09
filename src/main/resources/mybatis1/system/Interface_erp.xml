@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Interface_erp">
+
+	<select id="clientList" parameterType="pd" resultType="pd">
+		select
+			FName,
+			FNumber,
+			FAddress,
+			FContact,
+			FPhone,
+			FRegDate,
+			FCity,
+			FEmail,
+			CONVERT(BIGINT, FModifyTime) as FModifyTime
+		from
+			t_Organization
+		where
+			CONVERT(BIGINT, FModifyTime) > #{modifyTime}
+	</select>
+
+	<select id="contractList" parameterType="pd" resultType="pd">
+		SELECT
+			A.FNumber AS 'number',
+			A.FName AS 'name',
+			IsNull( C.FName, '' ) AS 'type',
+			IsNull( B.FName, '' ) AS 'client',
+			A.F_102 AS 'describe',
+			A.F_103 AS 'signing',
+			A.F_104 AS 'QGP',
+			ISNULL( B.FNumber, 0 ) AS 'custNo',
+			CONVERT(BIGINT, A.FModifyTime) AS 'FModifyTime'
+		FROM
+			t_Item_3008 A
+		LEFT JOIN t_Organization B ON B.FItemID= A.F_103
+		LEFT JOIN t_SubMessage C ON C.FInterID= A.F_106
+		WHERE
+			C.FName = '整机'
+		AND
+			CONVERT(BIGINT, A.FModifyTime) > #{modifyTime}
+	</select>
+
+	<select id="itemList" parameterType="pd" resultType="pd">
+		select
+			i.FName as 'iName',
+			i.FNumber as 'iNumber',
+			i.FModel as 'iModel',
+			u.FName as 'uName',
+			s.FName as 'sName',
+			i.FKFPeriod as 'iKFPeriod',
+			CONVERT(BIGINT, i.FModifyTime) as 'FModifyTime'
+		from
+			t_ICItem i
+		left join t_MeasureUnit u on u.FItemID = i.FCUUnitID
+		left join t_StockPlace s on s.FSPID = i.FSPID
+		where
+			CONVERT(BIGINT, i.FModifyTime) > #{modifyTime}
+	</select>
+
+	<select id="stockList" parameterType="pd" resultType="pd">
+		SELECT
+			item.FNumber as 'FNumber',
+			item.FName as 'FName',
+			item.FModel as 'FModel',
+			unit.FName as 'UFName',
+			stock.FName as 'SFName',
+			inven.FBatchNo as 'FBatchNo',
+			inven.FQty as 'FQty'
+		FROM
+			ICInventory inven
+		LEFT JOIN t_ICItem item ON item.FItemID = inven.FItemID
+		LEFT JOIN t_MeasureUnit unit ON unit.FItemID = item.FCUUnitID
+		LEFT JOIN t_Stock stock ON stock.FItemID = inven.FStockID
+		WHERE
+			item.FNumber = #{modifyTime}
+	</select>
+
+</mapper>

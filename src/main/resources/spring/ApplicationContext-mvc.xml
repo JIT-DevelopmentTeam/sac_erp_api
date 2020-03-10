@@ -23,7 +23,7 @@
 	<!-- 访问拦截  -->  
   	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/**/**"/>
+			<mvc:mapping path="/api/erp_get/**"/>
 			<bean class="com.fh.interceptor.LoginHandlerInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>

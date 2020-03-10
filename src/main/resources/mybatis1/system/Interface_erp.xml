@@ -30,7 +30,7 @@
 			IsNull( C.FName, '' ) AS 'type',
 			IsNull( B.FName, '' ) AS 'client',
 			A.F_102 AS 'describe',
-			A.F_103 AS 'signing',
+			A.F_103 AS 'clientId',
 			A.F_104 AS 'QGP',
 			ISNULL( B.FNumber, 0 ) AS 'custNo',
 			CONVERT(BIGINT, A.FModifyTime) AS 'FModifyTime'

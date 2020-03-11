@@ -22,12 +22,14 @@ public class TokenController extends BaseController {
     public Map<String, Object> getToken() {
         Map<String, Object> json = new HashMap<String, Object>();
         PageData pd = this.getPageData();
+        int effective_Time = 7200;
         String userid = pd.getString("userid");
-        String tokeValue = "token" + new Date().getTime() + "value" + new Double(Math.ceil(Math.random()*1000000)).intValue();
+        String tokeValue = new Date().getTime() + "token" + new Double(Math.ceil(Math.random()*1000000)).intValue() + "value";
         Jedis jedis = new Jedis("localhost");
         jedis.set(userid, tokeValue);
-        jedis.expire(userid, 7200);
+        jedis.expire(userid, effective_Time);
         json.put("token", tokeValue);
+        json.put("effective_Time", effective_Time);
         return json;
     }
 

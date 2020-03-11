@@ -23,7 +23,7 @@ public class ErpGetController extends BaseController{
 
 
 	/**
-	 * 获取客户列表API（传递参数：userid，token，max）
+	 * 获取客户列表API
 	 * @param page
 	 * @return
 	 * @throws Exception
@@ -40,7 +40,7 @@ public class ErpGetController extends BaseController{
 	}
 
 	/**
-	 * 获取合同列表API（传递参数：userid，token，max）
+	 * 获取合同列表API
 	 * @param page
 	 * @return
 	 * @throws Exception
@@ -57,7 +57,7 @@ public class ErpGetController extends BaseController{
 	}
 
 	/**
-	 * 获取物料列表API（传递参数：userid，token，max）
+	 * 获取物料列表API
 	 * @param page
 	 * @return
 	 * @throws Exception
@@ -74,7 +74,7 @@ public class ErpGetController extends BaseController{
 	}
 
 	/**
-	 * 获取库存列表API（传递参数：userid，token，num）
+	 * 获取库存列表API
 	 * @param page
 	 * @return
 	 * @throws Exception
@@ -85,6 +85,23 @@ public class ErpGetController extends BaseController{
 		Map<String, Object> json = new HashMap<String, Object>();
 		PageData pd = this.getPageData();
 		List<PageData> varList = itemService.stockList(pd);
+		json.put("size", varList.size());
+		json.put("data", varList);
+		return json;
+	}
+
+	/**
+	 * 获取物料分类列表API
+	 * @param page
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getItemClass")
+	public Map<String, Object> getItemClass(Page page) throws Exception {
+		Map<String, Object> json = new HashMap<String, Object>();
+		PageData pd = this.getPageData();
+		List<PageData> varList = itemService.itemClassList(pd);
 		json.put("size", varList.size());
 		json.put("data", varList);
 		return json;

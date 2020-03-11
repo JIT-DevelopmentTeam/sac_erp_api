@@ -36,4 +36,12 @@ public interface ItemManager {
      */
     List<PageData> stockList(PageData pd) throws Exception;
 
+    /**
+     * 查询物料分类列表
+     * @param pd
+     * @return
+     * @throws Exception
+     */
+    List<PageData> itemClassList(PageData pd) throws Exception;
+
 }

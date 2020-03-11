@@ -2,6 +2,7 @@ package com.fh.interceptor;
 
 import cn.jpush.api.BaseResult;
 import com.alibaba.fastjson.JSONObject;
+import com.fh.controller.TokenController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -28,10 +29,10 @@ public class LoginHandlerInterceptor extends HandlerInterceptorAdapter{
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		String userid = request.getParameter("userid");
+		String Authorization = TokenController.Authorization_Code;
 		String token = request.getParameter("token");
 		Jedis jedis = new Jedis("localhost");
-		if (jedis.exists(userid) && jedis.get(userid).equals(token)) {
+		if (jedis.exists(Authorization) && jedis.get(Authorization).equals(token)) {
 			return true;
 		}
 		BaseResult baseResult = new BaseResult();

@@ -31,7 +31,7 @@
 			IsNull( B.FName, '' ) AS 'client',
 			A.F_102 AS 'describe',
 			A.F_103 AS 'clientId',
-			A.F_104 AS 'QGP',
+			CONVERT(varchar(30), A.F_104, 120) AS 'QGP',
 			ISNULL( B.FNumber, 0 ) AS 'custNo',
 			CONVERT(BIGINT, A.FModifyTime) AS 'FModifyTime'
 		FROM
@@ -83,6 +83,22 @@
 		1 = 1
 		<if test="num != null and num != ''">
 			and item.FNumber = #{num}
+		</if>
+	</select>
+
+	<select id="itemClassList" parameterType="pd" resultType="pd">
+		Select
+			FNumber,
+			FName+'('+FNumber+')' AS FName,
+			FItemID AS FClassID,
+			FParentID,
+			CONVERT(BIGINT, FModifyTime) as FModifyTime
+		From
+			t_Item
+		Where
+			FItemClassID=4 And FDetail=0
+		<if test="max != null and max != ''">
+			And CONVERT(BIGINT, FModifyTime) > #{max}
 		</if>
 	</select>
 

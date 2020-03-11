@@ -58,4 +58,15 @@ public class ItemService implements ItemManager {
 	public List<PageData> stockList(PageData pd) throws Exception {
 		return (List<PageData>) dao.findForList("Interface_erp.stockList", pd);
 	}
+
+	/**
+	 * 查询物料分类列表
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	@Override
+	public List<PageData> itemClassList(PageData pd) throws Exception {
+		return (List<PageData>) dao.findForList("Interface_erp.itemClassList", pd);
+	}
 }

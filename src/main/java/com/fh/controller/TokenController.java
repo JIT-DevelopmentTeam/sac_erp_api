@@ -14,6 +14,9 @@ import java.util.Map;
 @RequestMapping(value = "/api/token")
 public class TokenController extends BaseController {
 
+    public static String Authorization_Code = "21b66d6f-0e82-4f5c-8cc8-acba8032bf54";
+    public static int effective_Time = 7200;
+
     /**
      * 获取token（传递参数：userid）
      * @return
@@ -22,14 +25,15 @@ public class TokenController extends BaseController {
     public Map<String, Object> getToken() {
         Map<String, Object> json = new HashMap<String, Object>();
         PageData pd = this.getPageData();
-        int effective_Time = 7200;
-        String userid = pd.getString("userid");
-        String tokeValue = new Date().getTime() + "token" + new Double(Math.ceil(Math.random()*1000000)).intValue() + "value";
-        Jedis jedis = new Jedis("localhost");
-        jedis.set(userid, tokeValue);
-        jedis.expire(userid, effective_Time);
-        json.put("token", tokeValue);
-        json.put("effective_Time", effective_Time);
+        String Authorization = pd.getString("Authorization");
+        if (Authorization_Code.equals(Authorization)) {
+            String tokeValue = new Date().getTime() + "token" + new Double(Math.ceil(Math.random()*1000000)).intValue() + "value";
+            Jedis jedis = new Jedis("localhost");
+            jedis.set(Authorization_Code, tokeValue);
+            jedis.expire(Authorization_Code, effective_Time);
+            json.put("token", tokeValue);
+            json.put("effective_Time", effective_Time);
+        }
         return json;
     }
 

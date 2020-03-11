@@ -9,7 +9,7 @@
 			FAddress,
 			FContact,
 			FPhone,
-			FRegDate,
+			CONVERT(varchar(30), FRegDate, 120) as FRegDate,
 			FCity,
 			FEmail,
 			CONVERT(BIGINT, FModifyTime) as FModifyTime

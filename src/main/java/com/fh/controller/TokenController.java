@@ -27,12 +27,17 @@ public class TokenController extends BaseController {
         PageData pd = this.getPageData();
         String Authorization = pd.getString("Authorization");
         if (Authorization_Code.equals(Authorization)) {
-            String tokeValue = new Date().getTime() + "token" + new Double(Math.ceil(Math.random()*1000000)).intValue() + "value";
             Jedis jedis = new Jedis("localhost");
-            jedis.set(Authorization_Code, tokeValue);
-            jedis.expire(Authorization_Code, effective_Time);
-            json.put("token", tokeValue);
-            json.put("effective_Time", effective_Time);
+            if (jedis.exists(Authorization)) {
+                json.put("token", jedis.get(Authorization));
+                json.put("effective_Time", jedis.ttl(Authorization));
+            } else {
+                String tokeValue = new Date().getTime() + "token" + new Double(Math.ceil(Math.random()*1000000)).intValue() + "value";
+                jedis.set(Authorization_Code, tokeValue);
+                jedis.expire(Authorization_Code, effective_Time);
+                json.put("token", tokeValue);
+                json.put("effective_Time", effective_Time);
+            }
         }
         return json;
     }

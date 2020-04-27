@@ -31,7 +31,9 @@
 			IsNull( B.FName, '' ) AS 'client',
 			A.F_102 AS 'describe',
 			A.F_103 AS 'clientId',
-			CONVERT(varchar(30), A.F_104, 120) AS 'QGP',
+			CONVERT(varchar(30), A.F_104, 120) AS 'signing', --签约日期
+			CONVERT(varchar(30), A.F_105, 120) AS 'QGP',--保质期
+			CONVERT(varchar(30), A.F_107, 120) AS 'acceptance',--验收日期
 			ISNULL( B.FNumber, 0 ) AS 'custNo',
 			CONVERT(BIGINT, A.FModifyTime) AS 'FModifyTime'
 		FROM

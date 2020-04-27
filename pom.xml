@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>interface_monica</groupId>
-	<artifactId>interface_monica</artifactId>
+	<groupId>sac_erp_api</groupId>
+	<artifactId>sac_erp_api</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>interface_monica</name>
+	<name>sac_erp_api</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -405,11 +405,11 @@
 		    <version>1.4.4</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.jslsolucoes/ojdbc6 -->
-		<dependency>
-		    <groupId>com.jslsolucoes</groupId>
-		    <artifactId>ojdbc6</artifactId>
-		    <version>11.2.0.1.0</version>
-		</dependency>
+<!--		<dependency>-->
+<!--		    <groupId>com.jslsolucoes</groupId>-->
+<!--		    <artifactId>ojdbc6</artifactId>-->
+<!--		    <version>11.2.0.1.0</version>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>com.fasterxml.jackson.jr</groupId>
 		  	<artifactId>jackson-jr-all</artifactId>
@@ -512,7 +512,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>interface_monica</finalName>
+		<finalName>sac_erp_api</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

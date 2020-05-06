@@ -8,7 +8,7 @@
 			FNumber,
 			FAddress,
 			FContact,
-			FPhone,
+			FMobilePhone,
 			CONVERT(varchar(30), FRegDate, 120) as FRegDate,
 			FCity,
 			FEmail,
